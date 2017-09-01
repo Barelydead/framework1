@@ -1,0 +1,32 @@
+html {
+    overflow-y: scroll;
+}
+
+img {
+    max-width: 100%;
+}
+
+.header-wrap {
+    height: 125px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.left {
+    float: left;
+    margin-right: 10px;
+}
+
+.footer-wrap {
+    clear: both;
+}
+
+.footer {
+    height: 40px;
+    text-align: center;
+    background-color: #eee;
+}
+
+.footer p {
+padding-top: 12px;
+}
