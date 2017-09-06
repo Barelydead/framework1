@@ -12,12 +12,29 @@ $app->router     = new \Anax\Route\RouterInjectable();
 $app->view       = new \Anax\View\ViewContainer();
 $app->textfilter = new \Anax\TextFilter\TextFilter();
 $app->session    = new \Anax\Session\SessionConfigurable();
+$app->ccontrol   = new \CJ\Comment\CommentController();
+$app->cstorage   = new \CJ\Comment\CommentStorage();
+$app->rem           = new \Anax\RemServer\RemServer();
+$app->remController = new \Anax\RemServer\RemServerController();
+
+// Init REM Server
+$app->rem->configure("remserver.php");
+$app->rem->inject(["session" => $app->session]);
+
+// Init controller for the REM Server
+$app->remController->setApp($app);
 
 // Configure request
 $app->request->init();
 
 // Configure router
 $app->router->setApp($app);
+
+// Configure router
+$app->ccontrol->setApp($app);
+$app->cstorage->setApp($app);
+
+
 
 // Configure session
 $app->session->configure("session.php");
@@ -30,6 +47,7 @@ $app->url->setStaticBaseUrl($app->request->getBaseUrl());
 $app->url->setScriptName($app->request->getScriptName());
 $app->url->configure("url.php");
 $app->url->setDefaultsFromConfiguration();
+
 
 // Configure view
 $app->view->setApp($app);

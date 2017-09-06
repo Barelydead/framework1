@@ -6,6 +6,19 @@ img {
     max-width: 100%;
 }
 
+.site-wrap {
+    min-height: 100vh;
+    background-color: #fff;
+}
+
+.inner-wrap {
+    background-color: #EFF2F9;
+}
+
+.top-nav {
+    margin-top: 15px;
+}
+
 .header-wrap {
     height: 125px;
     width: 100%;
@@ -28,5 +41,24 @@ img {
 }
 
 .footer p {
-padding-top: 12px;
+    padding-top: 12px;
+}
+
+
+.comment {
+    background: white;
+    padding: 10px;
+    overflow: auto;
+}
+
+.comment-img {
+    margin: 14px 10px 0 0;
+}
+
+.comment-action {
+    margin: 10px;
+}
+
+.comment-actions {
+    margin: 40px 0 0 0;
 }
