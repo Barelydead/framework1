@@ -1,5 +1,5 @@
 <?php
-$comments = $app->cstorage->getComments();
+$comments = $app->cmodel->getComments();
 $last = array_pop($comments);
 
 $index = $last["index"] + 1;
@@ -14,12 +14,12 @@ $index = $last["index"] + 1;
 
     <div class="form-group">
          <label for="msg">meddelande</label>
-         <textarea class="form-control" name="msg" rows="5" id="comment"></textarea>
+         <textarea class="form-control" name="msg" rows="3" id="comment"></textarea>
     </div>
 
     <input type="hidden" name="index" value="<?= $index ?>">
 
     <div class="form-group">
-        <input type="submit" class="btn btn-default">
+        <input type="submit" class="btn btn-default" value="skicka kommentar">
     </div>
 </form>

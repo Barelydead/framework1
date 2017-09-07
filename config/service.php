@@ -13,7 +13,7 @@ $app->view       = new \Anax\View\ViewContainer();
 $app->textfilter = new \Anax\TextFilter\TextFilter();
 $app->session    = new \Anax\Session\SessionConfigurable();
 $app->ccontrol   = new \CJ\Comment\CommentController();
-$app->cstorage   = new \CJ\Comment\CommentStorage();
+$app->cmodel   = new \CJ\Comment\CommentModel();
 $app->rem           = new \Anax\RemServer\RemServer();
 $app->remController = new \Anax\RemServer\RemServerController();
 
@@ -32,7 +32,7 @@ $app->router->setApp($app);
 
 // Configure router
 $app->ccontrol->setApp($app);
-$app->cstorage->setApp($app);
+$app->cmodel->setApp($app);
 
 
 

@@ -1,6 +1,5 @@
 <?php
-$comments = $app->cstorage->getComments();
-$comments = array_reverse($comments);
+
 ?>
 
 

@@ -5,7 +5,7 @@ namespace CJ\Comment;
 use \Anax\Common\AppInjectableInterface;
 use \Anax\Common\AppInjectableTrait;
 
-class CommentStorage implements AppInjectableInterface
+class CommentModel implements AppInjectableInterface
 {
     use AppInjectableTrait;
 

@@ -13,6 +13,6 @@
     <input type="hidden" name="index" value="<?= $comment['index']?>">
 
     <div class="form-group">
-        <input type="submit" class="btn btn-default">
+        <input type="submit" class="btn btn-default" value="edit">
     </div>
 </form>

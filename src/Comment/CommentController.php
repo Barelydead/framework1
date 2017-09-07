@@ -19,7 +19,7 @@ class CommentController implements AppInjectableInterface
      */
     public function startSession()
     {
-        $this->app->cstorage->init();
+        $this->app->cmodel->init();
     }
 
     /**
@@ -29,7 +29,7 @@ class CommentController implements AppInjectableInterface
     {
         $commentArray = $this->app->request->getPost();
 
-        $this->app->cstorage->addComment($commentArray);
+        $this->app->cmodel->addComment($commentArray);
 
         $this->app->redirect("comment");
     }
@@ -49,7 +49,7 @@ class CommentController implements AppInjectableInterface
      */
     public function removeComment($index)
     {
-        $this->app->cstorage->removeComment($index);
+        $this->app->cmodel->removeComment($index);
 
         $this->app->redirect("comment");
     }
@@ -59,7 +59,7 @@ class CommentController implements AppInjectableInterface
      */
     public function loadEdit($index)
     {
-        $post = $this->app->cstorage->getComment($index);
+        $post = $this->app->cmodel->getComment($index);
         $data = ["title" => "guestbook - edit"];
 
         $this->app->view->add("components/editform", ["comment" => $post], "main");
@@ -73,7 +73,7 @@ class CommentController implements AppInjectableInterface
     {
         $data = $this->app->request->getPost();
 
-        $this->app->cstorage->updateComment($data);
+        $this->app->cmodel->updateComment($data);
         $this->app->redirect("comment");
     }
 
@@ -84,9 +84,11 @@ class CommentController implements AppInjectableInterface
     public function renderComments()
     {
         $data = ["title" => "guestbook"];
+        $comments = $this->app->cmodel->getComments();
+        $comments = array_reverse($comments);
 
         $this->app->view->add("components/commentform", [], "main");
-        $this->app->view->add("components/commentholder", [], "main");
+        $this->app->view->add("components/commentholder", ["comments" => $comments], "main");
         $this->app->renderPage($data);
     }
 
