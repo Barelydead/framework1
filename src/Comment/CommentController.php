@@ -5,7 +5,6 @@ namespace CJ\Comment;
 use \Anax\Common\AppInjectableInterface;
 use \Anax\Common\AppInjectableTrait;
 
-
 /**
  * A controller for the comment section
  */
@@ -91,6 +90,4 @@ class CommentController implements AppInjectableInterface
         $this->app->view->add("components/commentholder", ["comments" => $comments], "main");
         $this->app->renderPage($data);
     }
-
-
 }

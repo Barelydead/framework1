@@ -3,7 +3,7 @@
 ?>
 
 
-<?php foreach ($comments as $comment): ?>
+<?php foreach ($comments as $comment) : ?>
     <hr>
     <div class="comment">
         <img src="https://www.gravatar.com/avatar/<?= md5($comment["mail"]) ?>" class="pull-left comment-img">

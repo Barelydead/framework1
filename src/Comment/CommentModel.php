@@ -35,7 +35,7 @@ class CommentModel implements AppInjectableInterface
     {
         $post = [];
         $comments = $this->getComments();
-        foreach ($comments as $key => $comment) {
+        foreach ($comments as $comment) {
             if ($comment["index"] == $index) {
                 $post = $comment;
             }
