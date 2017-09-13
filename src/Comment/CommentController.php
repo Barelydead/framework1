@@ -2,15 +2,15 @@
 
 namespace CJ\Comment;
 
-use \Anax\Common\AppInjectableInterface;
-use \Anax\Common\AppInjectableTrait;
+use \Anax\DI\InjectionAwareInterface;
+use \Anax\DI\InjectionAwareTrait;
 
 /**
  * A controller for the comment section
  */
-class CommentController implements AppInjectableInterface
+class CommentController implements InjectionAwareInterface
 {
-    use AppInjectableTrait;
+    use InjectionAwareTrait;
 
 
     /**
@@ -18,7 +18,7 @@ class CommentController implements AppInjectableInterface
      */
     public function startSession()
     {
-        $this->app->cmodel->init();
+        $this->di->get("cmodel")->init();
     }
 
     /**
@@ -26,11 +26,11 @@ class CommentController implements AppInjectableInterface
      */
     public function newComment()
     {
-        $commentArray = $this->app->request->getPost();
+        $commentArray = $this->di->get("request")->getPost();
 
-        $this->app->cmodel->addComment($commentArray);
+        $this->di->get("cmodel")->addComment($commentArray);
 
-        $this->app->redirect("comment");
+        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
     /**
@@ -40,7 +40,7 @@ class CommentController implements AppInjectableInterface
     {
         $this->app->session->destroy();
 
-        $this->app->redirect("comment");
+        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
     /**
@@ -48,9 +48,9 @@ class CommentController implements AppInjectableInterface
      */
     public function removeComment($index)
     {
-        $this->app->cmodel->removeComment($index);
+        $this->di->get("cmodel")->removeComment($index);
 
-        $this->app->redirect("comment");
+        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
     /**
@@ -58,11 +58,11 @@ class CommentController implements AppInjectableInterface
      */
     public function loadEdit($index)
     {
-        $post = $this->app->cmodel->getComment($index);
+        $post = $this->di->get("cmodel")->getComment($index);
         $data = ["title" => "guestbook - edit"];
 
-        $this->app->view->add("components/editform", ["comment" => $post], "main");
-        $this->app->renderPage($data);
+        $this->di->get("view")->add("components/editform", ["comment" => $post], "main");
+        $this->di->get("pageRender")->renderPage($data);
     }
 
     /**
@@ -70,10 +70,10 @@ class CommentController implements AppInjectableInterface
      */
     public function editComment()
     {
-        $data = $this->app->request->getPost();
+        $data = $this->di->get("request")->getPost();
 
-        $this->app->cmodel->updateComment($data);
-        $this->app->redirect("comment");
+        $this->di->get("cmodel")->updateComment($data);
+        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
 
@@ -83,11 +83,11 @@ class CommentController implements AppInjectableInterface
     public function renderComments()
     {
         $data = ["title" => "guestbook"];
-        $comments = $this->app->cmodel->getComments();
+        $comments = $this->di->get("cmodel")->getComments();
         $comments = array_reverse($comments);
 
-        $this->app->view->add("components/commentform", [], "main");
-        $this->app->view->add("components/commentholder", ["comments" => $comments], "main");
-        $this->app->renderPage($data);
+        $this->di->get("view")->add("components/commentform", [], "main");
+        $this->di->get("view")->add("components/commentholder", ["comments" => $comments], "main");
+        $this->di->get("pageRender")->renderPage($data);
     }
 }

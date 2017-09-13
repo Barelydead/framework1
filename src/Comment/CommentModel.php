@@ -2,19 +2,19 @@
 
 namespace CJ\Comment;
 
-use \Anax\Common\AppInjectableInterface;
-use \Anax\Common\AppInjectableTrait;
+use \Anax\DI\InjectionAwareInterface;
+use \Anax\DI\InjectionAwareTrait;
 
-class CommentModel implements AppInjectableInterface
+class CommentModel implements InjectionAwareInterface
 {
-    use AppInjectableTrait;
+    use InjectionAwareTrait;
 
     /**
      * Start session
      */
     public function init()
     {
-        $this->app->session->start();
+        $this->di->get("session")->start();
     }
 
     /**
@@ -22,7 +22,7 @@ class CommentModel implements AppInjectableInterface
      */
     public function getComments()
     {
-        $comments = $this->app->session->get("comment");
+        $comments = $this->di->get("session")->get("comment");
         $comments = is_array($comments) ? $comments : [];
 
         return $comments;
@@ -52,7 +52,9 @@ class CommentModel implements AppInjectableInterface
         $comments = $this->getComments();
         array_push($comments, $commentArray);
 
-        $this->app->session->set("comment", $comments);
+
+
+        $this->di->get("session")->set("comment", $comments);
     }
 
     /**
@@ -68,7 +70,7 @@ class CommentModel implements AppInjectableInterface
             }
         }
 
-        $this->app->session->set("comment", $comments);
+        $this->di->get("session")->set("comment", $comments);
     }
 
     /**
@@ -84,6 +86,6 @@ class CommentModel implements AppInjectableInterface
             }
         }
 
-        $this->app->session->set("comment", $comments);
+        $this->di->get("session")->set("comment", $comments);
     }
 }

@@ -14,7 +14,12 @@ require ANAX_INSTALL_PATH . "/config/error_reporting.php";
 require ANAX_INSTALL_PATH . "/vendor/autoload.php";
 
 // Add all services to $app
-$app = require ANAX_INSTALL_PATH . "/config/service.php";
+// $app = require ANAX_INSTALL_PATH . "/config/service.php";
+$di  = new \Anax\DI\DIFactoryConfig("di.php");
+//$app = new \Anax\App\App();
+//$app = new \Anax\App\AppDI();
+$app = new \Anax\App\AppDIMagic();
+$app->setDI($di);
 
 // Load the routes
 require ANAX_INSTALL_PATH . "/config/route.php";

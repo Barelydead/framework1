@@ -23,13 +23,13 @@ class App
     public function renderPage($data, $status = 200)
     {
         $data["stylesheets"] = ["css/style.css"];
-
+        //
         if (!isset($data["layout"])) {
             $data["layout"] = "layout";
         }
-
-        // Add common header, navbar and footer
-        $this->view->add("custom/header", [], "header");
+        //
+        // // Add common header, navbar and footer
+        // $this->view->add("custom/header", [], "header");
         $this->view->add("custom/navbar", [], "navbar");
         $this->view->add("custom/sidebar", [], "sidebar");
         $this->view->add("custom/footer", [], "footer");
@@ -40,16 +40,5 @@ class App
         $this->response->setBody($body)
                        ->send($status);
         exit;
-    }
-
-    public function render($title, $view, $data = null)
-    {
-        $this->view->add("custom1/header", ["title" => "$title"]);
-        $this->view->add("custom1/navbar");
-        $this->view->add("$view", ["data" => $data]);
-        $this->view->add("custom1/footer");
-
-        $this->response->setBody([$this->view, "render"])
-                      ->send();
     }
 }

@@ -13,7 +13,7 @@ $app->view       = new \Anax\View\ViewContainer();
 $app->textfilter = new \Anax\TextFilter\TextFilter();
 $app->session    = new \Anax\Session\SessionConfigurable();
 $app->ccontrol   = new \CJ\Comment\CommentController();
-$app->cmodel   = new \CJ\Comment\CommentModel();
+$app->cmodel        = new \CJ\Comment\CommentModel();
 $app->rem           = new \Anax\RemServer\RemServer();
 $app->remController = new \Anax\RemServer\RemServerController();
 
