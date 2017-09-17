@@ -59,6 +59,16 @@ return [
                 return $viewRender;
             }
         ],
+        "database" => [
+            "shared" => false,
+            "callback" => function () {
+
+                $db = new \Anax\Database\DatabaseConfigure();
+                $db->configure("database.php");
+                $db->connect();
+                return $db;
+            }
+        ],
         "session" => [
             "shared" => true,
             "callback" => function () {
@@ -88,9 +98,17 @@ return [
                 return $rem;
             }
         ],
+        "ucontrol" => [
+            "shared" => false,
+            "callback" => function () {
+                $ucontrol = new \CJ\User\UserController();
+                $ucontrol->setDI($this);
+                return $ucontrol;
+            }
+        ],
         "ccontrol" => [
             "shared" => false,
-            "callback" => function() {
+            "callback" => function () {
                 $ccontrol = new \CJ\Comment\CommentController();
                 $ccontrol->setDI($this);
                 return $ccontrol;
@@ -98,7 +116,7 @@ return [
         ],
         "cmodel" => [
             "shared" => false,
-            "callback" => function() {
+            "callback" => function () {
                 $cmodel = new \CJ\Comment\CommentModel();
                 $cmodel->setDI($this);
                 return $cmodel;

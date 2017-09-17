@@ -32,6 +32,11 @@ return [
             "file" => __DIR__ . "/route2/comment.php",
         ],
         [
+            // commnt routes/
+            "mount" => null,
+            "file" => __DIR__ . "/route2/user.php",
+        ],
+        [
             // Keep this last since its a catch all
             "mount" => null,
             "file" => __DIR__ . "/route2/404.php",

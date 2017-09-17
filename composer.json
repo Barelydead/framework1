@@ -11,11 +11,13 @@
         "symfony/yaml": "^3.3",
         "mos/cimage": "^0.7.19",
         "anax/page": "^1.0",
-        "anax/di": "^1.0"
+        "anax/di": "^1.0",
+        "anax/database": "^1.1"
     },
     "autoload": {
-        "psr-4": {"Anax\\": "src/",
-                  "CJ\\": "src/"
+        "psr-4": {
+            "Anax\\": "src/",
+            "CJ\\": "src/"
         }
     }
 }
