@@ -9,13 +9,6 @@ class CommentModel implements InjectionAwareInterface
 {
     use InjectionAwareTrait;
 
-    /**
-     * Start session
-     */
-    public function init()
-    {
-        $this->di->get("session")->start();
-    }
 
     /**
      * Gets all comments from session

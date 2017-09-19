@@ -13,13 +13,6 @@ class CommentController implements InjectionAwareInterface
     use InjectionAwareTrait;
 
 
-    /**
-     * start session
-     */
-    public function startSession()
-    {
-        $this->di->get("cmodel")->init();
-    }
 
     /**
      * process incomming POST

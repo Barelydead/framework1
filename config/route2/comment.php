@@ -4,12 +4,6 @@
 return [
     "routes" => [
         [
-            "info" => "Start the session",
-            "requestMethod" => null,
-            "path" => "comment/**",
-            "callable" => ["ccontrol", "startSession"]
-        ],
-        [
             "info" => "redirct and render Comment page",
             "requestMethod" => null,
             "path" => "comment",
