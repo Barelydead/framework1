@@ -1,22 +1,22 @@
 <?php
 
-namespace CJ\User\HTMLForm;
+namespace CJ\Comment\HTMLForm;
 
 use \Anax\HTMLForm\FormModel;
 use \Anax\DI\DIInterface;
-use \CJ\User\User;
+use \CJ\Comment\Comment;
 
 /**
  * Form to create an item.
  */
-class LoginForm extends FormModel
+class CreateCommentForm extends FormModel
 {
     /**
      * Constructor injects with DI container.
      *
      * @param Anax\DI\DIInterface $di a service container
      */
-    public function __construct(DIInterface $di)
+    public function __construct(DIInterface $di, $userId)
     {
         parent::__construct($di);
         $this->form->create(
@@ -24,21 +24,24 @@ class LoginForm extends FormModel
                 "id" => __CLASS__,
             ],
             [
-                "mail" => [
+                "title" => [
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "class" => "form-control"
                 ],
 
-                "password" => [
-                    "type" => "password",
+                "message" => [
+                    "type" => "textarea",
                     "validation" => ["not_empty"],
                     "class" => "form-control"
                 ],
-
+                "user" => [
+                    "type" => "hidden",
+                    "value" => "$userId"
+                ],
                 "submit" => [
                     "type" => "submit",
-                    "value" => "Login",
+                    "value" => "Comment",
                     "callback" => [$this, "callbackSubmit"],
                     "class" => "btn btn-default"
                 ],
@@ -49,30 +52,23 @@ class LoginForm extends FormModel
 
 
     /**
-     * Callback for submit-button which should return true if it could
-     * carry out its work and false if something failed.
-     *
      * @return boolean true if okey, false if something went wrong.
      */
     public function callbackSubmit()
     {
-        $mail       = $this->form->value("mail");
-        $password   = $this->form->value("password");
+        $title = $this->form->value("title");
+        $message = $this->form->value("message");
+        $user = $this->form->value("user");
 
-        $user = new User();
-        $user->setDb($this->di->get("db"));
-        $res = $user->verifyPassword($mail, $password);
+        $comment = New Comment();
+        $comment->setDb($this->di->get("db"));
 
-        if (!$res) {
-           $this->form->rememberValues();
-           $this->form->addOutput("User or password did not match.");
-           return false;
-        }
+        $comment->msg = $message;
+        $comment->user = $user;
+        $comment->heading = $title;
+        $comment->save();
 
-        $user->find("mail", $mail);
-
-        $this->di->get("session")->set("user", $user->id);
-        $this->form->addOutput("User logged in.");
+        $this->form->addOutput("Kommentar postad");
         return true;
     }
 }

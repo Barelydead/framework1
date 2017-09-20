@@ -4,6 +4,9 @@ namespace CJ\Comment;
 
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
+use \CJ\User\User;
+use \CJ\Comment\HTMLForm\CreateCommentForm;
+use \CJ\Comment\HTMLForm\EditCommentForm;
 
 /**
  * A controller for the comment section
@@ -19,11 +22,21 @@ class CommentController implements InjectionAwareInterface
      */
     public function newComment()
     {
-        $commentArray = $this->di->get("request")->getPost();
+        $umodel = $this->di->get("umodel");
 
-        $this->di->get("cmodel")->addComment($commentArray);
+        if (!$umodel->isLoggedIn()) {
+            $this->di->get("response")->redirect($this->di->get("url")->create("user/login"));
+        }
 
-        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+        $form = new CreateCommentForm($this->di, $umodel->getLoggedInUserId());
+        $form->check();
+
+        $data = ["form" => $form->getHTML()];
+
+        $this->di->get("view")->add("user/createUser", $data);
+
+        $this->di->get("pageRender")->renderPage(["title" => "CommentForm"]);
+
     }
 
     /**
@@ -41,8 +54,14 @@ class CommentController implements InjectionAwareInterface
      */
     public function removeComment($index)
     {
-        $this->di->get("cmodel")->removeComment($index);
+        $cmodel = $this->di->get("cmodel");
+        $comment = $cmodel->getComment($index);
 
+        if ($comment->user !== $this->di->get("session")->get("user")) {
+            $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+        }
+
+        $cmodel->delete($index);
         $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
@@ -51,11 +70,19 @@ class CommentController implements InjectionAwareInterface
      */
     public function loadEdit($index)
     {
-        $post = $this->di->get("cmodel")->getComment($index);
-        $data = ["title" => "guestbook - edit"];
+        $comment = $this->di->get("cmodel")->getComment($index);
 
-        $this->di->get("view")->add("components/editform", ["comment" => $post], "main");
-        $this->di->get("pageRender")->renderPage($data);
+        if ($comment->user !== $this->di->get("session")->get("user")) {
+            $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+        }
+
+        $form = new EditCommentForm($this->di, $comment);
+        $form->check();
+
+        $data = ["form" => $form->getHTML()];
+
+        $this->di->get("view")->add("user/update", $data, "main");
+        $this->di->get("pageRender")->renderPage(["title" => "guestbook - edit"]);
     }
 
     /**
@@ -77,9 +104,9 @@ class CommentController implements InjectionAwareInterface
     {
         $data = ["title" => "guestbook"];
         $comments = $this->di->get("cmodel")->getComments();
+        $users = $this->di->get("umodel")->getAllUsers();
         $comments = array_reverse($comments);
 
-        $this->di->get("view")->add("components/commentform", [], "main");
         $this->di->get("view")->add("components/commentholder", ["comments" => $comments], "main");
         $this->di->get("pageRender")->renderPage($data);
     }

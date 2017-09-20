@@ -11,7 +11,7 @@ return [
         ],
         [
             "info" => "add new post to session",
-            "requestMethod" => "post",
+            "requestMethod" => "get|post",
             "path" => "comment/new",
             "callable" => ["ccontrol", "newComment"]
         ],
@@ -29,7 +29,7 @@ return [
         ],
         [
             "info" => "redirect to edit page",
-            "requestMethod" => "get",
+            "requestMethod" => "get|post",
             "path" => "comment/edit/{index}",
             "callable" => ["ccontrol", "loadEdit"]
         ],

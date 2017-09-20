@@ -38,6 +38,7 @@ class User extends ActiveRecordModel
         $this->password = password_hash($password, PASSWORD_DEFAULT);
     }
 
+
     /**
      * Verify the acronym and the password, if successful the object contains
      * all details from the database row.

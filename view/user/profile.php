@@ -1,3 +1,5 @@
+<?= var_dump($_SESSION)?>
+
 <div class="container">
     <div class="page-header">
         <h2>Din profil</h2>

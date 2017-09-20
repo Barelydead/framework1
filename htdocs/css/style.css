@@ -61,6 +61,7 @@ img {
     background: white;
     padding: 10px;
     overflow: auto;
+    margin-bottom: 10px;
 }
 
 .comment-img {

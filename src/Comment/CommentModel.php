@@ -4,6 +4,7 @@ namespace CJ\Comment;
 
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
+use \CJ\Comment\Comment;
 
 class CommentModel implements InjectionAwareInterface
 {
@@ -15,10 +16,12 @@ class CommentModel implements InjectionAwareInterface
      */
     public function getComments()
     {
-        $comments = $this->di->get("session")->get("comment");
-        $comments = is_array($comments) ? $comments : [];
+        $db = $this->di->get("db");
 
-        return $comments;
+        $comments = new Comment();
+        $comments->setDb($db);
+
+        return $comments->findAll();
     }
 
     /**
@@ -26,59 +29,23 @@ class CommentModel implements InjectionAwareInterface
      */
     public function getComment($index)
     {
-        $post = [];
-        $comments = $this->getComments();
-        foreach ($comments as $comment) {
-            if ($comment["index"] == $index) {
-                $post = $comment;
-            }
-        }
+        $db = $this->di->get("db");
 
-        return $post;
+        $comments = new Comment();
+        $comments->setDb($db);
+
+        return $comments->find("id", $index);
     }
+
 
     /**
      *
      */
-    public function addComment($commentArray)
+    public function delete($index)
     {
-        $comments = $this->getComments();
-        array_push($comments, $commentArray);
+        $comment = new Comment();
+        $comment->setDb($this->di->get("db"));
 
-
-
-        $this->di->get("session")->set("comment", $comments);
-    }
-
-    /**
-     *
-     */
-    public function removeComment($index)
-    {
-        $comments = $this->getComments();
-
-        foreach ($comments as $key => $post) {
-            if ($post["index"] == $index) {
-                unset($comments[$key]);
-            }
-        }
-
-        $this->di->get("session")->set("comment", $comments);
-    }
-
-    /**
-     *
-     */
-    public function updateComment($data)
-    {
-        $comments = $this->getComments();
-
-        foreach ($comments as $key => $post) {
-            if ($post["index"] == $data["index"]) {
-                $comments[$key] = $data;
-            }
-        }
-
-        $this->di->get("session")->set("comment", $comments);
+        $comment->delete($index);
     }
 }

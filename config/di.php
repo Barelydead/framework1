@@ -110,6 +110,14 @@ return [
                 return $ucontrol;
             }
         ],
+        "umodel" => [
+            "shared" => false,
+            "callback" => function () {
+                $umodel = new \CJ\User\UserModel();
+                $umodel->setDI($this);
+                return $umodel;
+            }
+        ],
         "ccontrol" => [
             "shared" => false,
             "callback" => function () {
