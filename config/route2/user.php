@@ -27,6 +27,24 @@ return [
             "callable" => ["ucontrol", "editUser"]
         ],
         [
+            "info" => "Admin page to edit all users",
+            "requestMethod" => "get|post",
+            "path" => "adminEditUser",
+            "callable" => ["ucontrol", "adminViewUsers"]
+        ],
+        [
+            "info" => "Delete a user",
+            "requestMethod" => "get|post",
+            "path" => "admin/delete/{id}",
+            "callable" => ["ucontrol", "adminDeleteUser"]
+        ],
+        [
+            "info" => "edit password",
+            "requestMethod" => "get|post",
+            "path" => "admin/edit/{id}",
+            "callable" => ["ucontrol", "adminEditUser"]
+        ],
+        [
             "info" => "edit password",
             "requestMethod" => "get|post",
             "path" => "editPassword",

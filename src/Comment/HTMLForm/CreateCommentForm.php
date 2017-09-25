@@ -68,7 +68,6 @@ class CreateCommentForm extends FormModel
         $comment->heading = $title;
         $comment->save();
 
-        $this->form->addOutput("Kommentar postad");
-        return true;
+        $this->di->get("response")->redirect("comment");
     }
 }

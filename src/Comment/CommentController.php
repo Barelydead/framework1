@@ -56,10 +56,18 @@ class CommentController implements InjectionAwareInterface
     {
         $cmodel = $this->di->get("cmodel");
         $comment = $cmodel->getComment($index);
+        $user = $this->di->get("umodel");
+
 
         if ($comment->user !== $this->di->get("session")->get("user")) {
-            $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+
+            if ($user->isUserAdmin()) {
+                // Do nothing
+            } else {
+                $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+            }
         }
+
 
         $cmodel->delete($index);
         $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
@@ -71,9 +79,16 @@ class CommentController implements InjectionAwareInterface
     public function loadEdit($index)
     {
         $comment = $this->di->get("cmodel")->getComment($index);
+        $user = $this->di->get("umodel");
+
 
         if ($comment->user !== $this->di->get("session")->get("user")) {
-            $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+
+            if ($user->isUserAdmin()) {
+                // Do nothing
+            } else {
+                $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
+            }
         }
 
         $form = new EditCommentForm($this->di, $comment);

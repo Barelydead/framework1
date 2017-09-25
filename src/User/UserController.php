@@ -8,6 +8,7 @@ use \CJ\User\HTMLForm\LoginForm;
 use \CJ\User\HTMLForm\CreateUserForm;
 use \CJ\User\HTMLForm\UpdateUserForm;
 use \CJ\User\HTMLForm\UpdatePasswordForm;
+use \CJ\User\HTMLForm\AdminUserForm;
 use \CJ\User\User;
 
 
@@ -121,6 +122,56 @@ class UserController implements InjectionAwareInterface
         }
 
         $form       = new UpdatePasswordForm($this->di, $session->get("user"));
+
+        $form->check();
+
+        $data = ["form" => $form->getHTML()];
+
+        $view->add("user/update", $data, "main");
+        $pageRender->renderPage(["title" => $title]);
+    }
+
+    public function adminViewUsers()
+    {
+        $title      = "Admin edit users";
+        $view       = $this->di->get("view");
+        $pageRender = $this->di->get("pageRender");
+        $allUsers = $this->di->get("umodel")->getAllUsers();
+
+        if (!$this->di->get("umodel")->isUserAdmin()) {
+            $this->di->get("response")->redirect("user/login");
+        }
+
+        $data = [ "users" => $allUsers ];
+
+        $view->add("user/listUsers", $data, "main");
+        $pageRender->renderPage(["title" => $title]);
+    }
+
+    public function adminDeleteUser($id)
+    {
+        if (!$this->di->get("umodel")->isUserAdmin()) {
+            $this->di->get("response")->redirect("user/login");
+        }
+
+        $umodel = $this->di->get("umodel");
+        $umodel->deleteUser($id);
+
+        $this->di->get("response")->redirect("user/adminEditUser");
+    }
+
+    public function adminEditUser($id)
+    {
+        $title      = "Admin edit users";
+        $view       = $this->di->get("view");
+        $pageRender = $this->di->get("pageRender");
+        $umodel = $this->di->get("umodel");
+
+        if (!$umodel->isUserAdmin()) {
+            $this->di->get("response")->redirect("user/login");
+        }
+
+        $form       = new AdminUserForm($this->di, $id);
 
         $form->check();
 

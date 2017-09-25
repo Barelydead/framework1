@@ -17,7 +17,7 @@
 
         <?php if ($this->regionHasContent("header")) : ?>
         <div class="header-wrap">
-            <img src="<?= $app->image ?>frameworktext.jpg?w=1140&height=320&crop-to-fit" alt="framework">
+            <img src="<?= $di->get("url")->create("image") ?>/frameworktext.jpg?w=1140&height=320&crop-to-fit" alt="framework">
             <?php $this->renderRegion("header") ?>
         </div>
         <?php endif; ?>

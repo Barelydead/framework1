@@ -33,6 +33,18 @@ class UserModel implements InjectionAwareInterface
 
 
     /*
+    * Get all users.
+    */
+    public function deleteUser($id)
+    {
+        $this->init();
+
+        $this->user->find("id", $id);
+        $this->user->delete();
+    }
+
+
+    /*
     * Get a user based on ID
     */
     public function getUser($id)
@@ -69,5 +81,24 @@ class UserModel implements InjectionAwareInterface
 
         $html = "<img src='https://www.gravatar.com/avatar/$hash?s=$size&default=mm' class='$classes'>";
         return $html;
+    }
+
+
+    /*
+    * Return true is user is admin
+    */
+    public function isUserAdmin()
+    {
+        $this->init();
+        if ($this->isLoggedIn()) {
+            $id = $this->getLoggedInUserId();
+
+            $this->user->find("id", $id);
+            if ($this->user->userType == "admin") {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -9,7 +9,7 @@ use \CJ\User\User;
 /**
  * Form to create an item.
  */
-class UpdateUserForm extends FormModel
+class AdminUserForm extends FormModel
 {
     /**
      * Constructor injects with DI container.
@@ -31,6 +31,16 @@ class UpdateUserForm extends FormModel
                     "type" => "text",
                     "validation" => ["not_empty"],
                     "value" => $user->mail,
+                    "class" => "form-control"
+                ],
+                "userType" => [
+                    "type" => "text",
+                    "value" => $user->userType,
+                    "class" => "form-control"
+                ],
+                "password" => [
+                    "type" => "password",
+                    "value" => null,
                     "class" => "form-control"
                 ],
                 "updated" => [
@@ -67,13 +77,20 @@ class UpdateUserForm extends FormModel
         $session = $this->di->get("session");
 
         $mail = $this->form->value("mail");
+        $userType = $this->form->value("userType");
         $updated = $this->form->value("updated");
+        $password = $this->form->value("password");
 
         $user = new User();
         $user->setDb($this->di->get("db"));
         $user->find("id", $this->id);
         $user->updated = $updated;
         $user->mail = $mail;
+        $user->userType = $userType;
+
+        if (isset($password)) {
+            $user->setPassword($password);
+        }
         $user->save();
 
         $this->form->addOutput("Uppdaterad");

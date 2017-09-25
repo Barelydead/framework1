@@ -16,9 +16,9 @@ class UpdatePasswordForm extends FormModel
      *
      * @param Anax\DI\DIInterface $di a service container
      */
-    public function __construct(DIInterface $di, $mail)
+    public function __construct(DIInterface $di, $id)
     {
-        $this->mail = $mail;
+        $this->id = $id;
         parent::__construct($di);
         $this->form->create(
             [
@@ -62,7 +62,7 @@ class UpdatePasswordForm extends FormModel
 
         $user = new User();
         $user->setDb($this->di->get("db"));
-        $user->find("mail", $this->mail);
+        $user->find("id", $this->id);
 
         if (password_verify($password, $user->password)) {
             $this->form->addOutput("gamla lösenordet stämmer inte");

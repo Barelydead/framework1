@@ -15,10 +15,6 @@ img {
     background-color: #fff;
 }
 
-.inner-wrap {
-    background-color: #EFF2F9;
-}
-
 .main-wrap {
     min-height: 400px;
 }
@@ -27,12 +23,9 @@ img {
     margin-right: 10px;
 }
 
-.top-nav {
-    margin-top: 15px;
-}
 
 .header-wrap {
-    height: 125px;
+    height: 145px;
     width: 100%;
     overflow: hidden;
 }
