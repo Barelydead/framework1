@@ -74,8 +74,6 @@ class AdminUserForm extends FormModel
      */
     public function callbackSubmit()
     {
-        $session = $this->di->get("session");
-
         $mail = $this->form->value("mail");
         $userType = $this->form->value("userType");
         $updated = $this->form->value("updated");
@@ -95,6 +93,5 @@ class AdminUserForm extends FormModel
 
         $this->form->addOutput("Uppdaterad");
         return true;
-
     }
 }

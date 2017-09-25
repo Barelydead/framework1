@@ -64,9 +64,9 @@ class LoginForm extends FormModel
         $res = $user->verifyPassword($mail, $password);
 
         if (!$res) {
-           $this->form->rememberValues();
-           $this->form->addOutput("User or password did not match.");
-           return false;
+            $this->form->rememberValues();
+            $this->form->addOutput("User or password did not match.");
+            return false;
         }
 
         $user->find("mail", $mail);

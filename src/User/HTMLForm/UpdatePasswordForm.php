@@ -58,7 +58,6 @@ class UpdatePasswordForm extends FormModel
     {
         $password = $this->form->value("password");
         $newPassword = $this->form->value("new-password");
-        $newRePassword = $this->form->value("new-repassword");
 
         $user = new User();
         $user->setDb($this->di->get("db"));
@@ -74,6 +73,5 @@ class UpdatePasswordForm extends FormModel
 
         $this->form->addOutput("Uppdaterad");
         return true;
-
     }
 }

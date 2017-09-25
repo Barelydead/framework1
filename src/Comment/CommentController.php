@@ -36,7 +36,6 @@ class CommentController implements InjectionAwareInterface
         $this->di->get("view")->add("user/createUser", $data);
 
         $this->di->get("pageRender")->renderPage(["title" => "CommentForm"]);
-
     }
 
     /**
@@ -60,7 +59,6 @@ class CommentController implements InjectionAwareInterface
 
 
         if ($comment->user !== $this->di->get("session")->get("user")) {
-
             if ($user->isUserAdmin()) {
                 // Do nothing
             } else {
@@ -83,7 +81,6 @@ class CommentController implements InjectionAwareInterface
 
 
         if ($comment->user !== $this->di->get("session")->get("user")) {
-
             if ($user->isUserAdmin()) {
                 // Do nothing
             } else {
@@ -119,7 +116,6 @@ class CommentController implements InjectionAwareInterface
     {
         $data = ["title" => "guestbook"];
         $comments = $this->di->get("cmodel")->getComments();
-        $users = $this->di->get("umodel")->getAllUsers();
         $comments = array_reverse($comments);
 
         $this->di->get("view")->add("components/commentholder", ["comments" => $comments], "main");

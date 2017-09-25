@@ -68,7 +68,7 @@ class CreateUserForm extends FormModel
         $rePassword = $this->form->value("re-password");
 
         // Check password matches
-        if ($password !== $rePassword ) {
+        if ($password !== $rePassword) {
             $this->form->addOutput("Password did not match.");
             return false;
         }

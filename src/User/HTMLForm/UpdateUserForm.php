@@ -64,8 +64,6 @@ class UpdateUserForm extends FormModel
      */
     public function callbackSubmit()
     {
-        $session = $this->di->get("session");
-
         $mail = $this->form->value("mail");
         $updated = $this->form->value("updated");
 
@@ -78,6 +76,5 @@ class UpdateUserForm extends FormModel
 
         $this->form->addOutput("Uppdaterad");
         return true;
-
     }
 }

@@ -11,7 +11,6 @@ use \CJ\User\HTMLForm\UpdatePasswordForm;
 use \CJ\User\HTMLForm\AdminUserForm;
 use \CJ\User\User;
 
-
 /**
  * A controller user
  */

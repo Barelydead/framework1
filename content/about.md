@@ -8,6 +8,6 @@ I denna kurs ska vi fördjupa oss i hur man jobbar med ramverk på olika sätt. 
 
 Jag hoppas att jag ska kunna öka min förståelse för hur man skriver bra PHP-kod och bli ännu mer hemma med att jobba i ett ramverk.
 
-[Mitt gihub repo](http://github.com/barelydead/)
+[Mitt gihub repo](http://github.com/barelydead/framework1)
 
 ![php](image/php.png?w=1000)

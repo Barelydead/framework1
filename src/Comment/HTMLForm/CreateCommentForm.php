@@ -60,7 +60,7 @@ class CreateCommentForm extends FormModel
         $message = $this->form->value("message");
         $user = $this->form->value("user");
 
-        $comment = New Comment();
+        $comment = new Comment();
         $comment->setDb($this->di->get("db"));
 
         $comment->msg = $message;
