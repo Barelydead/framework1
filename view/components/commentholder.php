@@ -11,9 +11,11 @@
         <?php if ($this->di->get("umodel")->isUserAdmin()) : ?>
             <a href="<?=$this->di->get("url")->create("comment/edit/" . $comment->id) ?>"><span class="glyphicon glyphicon-pencil pull-right margin-right"></span></a>
             <a href="<?=$this->di->get("url")->create("comment/delete/" . $comment->id) ?>"><span class="glyphicon glyphicon-remove pull-right margin-right"></span></a>
+
         <?php elseif ($comment->user == $this->di->get("umodel")->getLoggedInUserId()) : ?>
             <a href="<?=$this->di->get("url")->create("comment/edit/" . $comment->id) ?>"><span class="glyphicon glyphicon-pencil pull-right margin-right"></span></a>
             <a href="<?=$this->di->get("url")->create("comment/delete/" . $comment->id) ?>"><span class="glyphicon glyphicon-remove pull-right margin-right"></span></a>
+            
         <?php endif;?>
 
         <h4><?= $comment->heading ?></h4>

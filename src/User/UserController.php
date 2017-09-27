@@ -9,7 +9,6 @@ use \CJ\User\HTMLForm\CreateUserForm;
 use \CJ\User\HTMLForm\UpdateUserForm;
 use \CJ\User\HTMLForm\UpdatePasswordForm;
 use \CJ\User\HTMLForm\AdminUserForm;
-use \CJ\User\User;
 
 /**
  * A controller user
@@ -72,8 +71,7 @@ class UserController implements InjectionAwareInterface
             $this->di->get("response")->redirect("user/login");
         }
 
-        $user = new User();
-        $user->setDb($this->di->get("db"));
+        $user = $this->di->get("umodel");
         $user->find("id", $session->get("user"));
 
         $data = ["user" => $user];

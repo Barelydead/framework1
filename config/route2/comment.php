@@ -31,7 +31,7 @@ return [
             "info" => "redirect to edit page",
             "requestMethod" => "get|post",
             "path" => "comment/edit/{index}",
-            "callable" => ["ccontrol", "loadEdit"]
+            "callable" => ["ccontrol", "editComment"]
         ],
         [
             "info" => "redirect to edit page",

@@ -113,8 +113,8 @@ return [
         "umodel" => [
             "shared" => false,
             "callback" => function () {
-                $umodel = new \CJ\User\UserModel();
-                $umodel->setDI($this);
+                $umodel = new \CJ\User\User();
+                $umodel->init($this->get("db"), $this->get("session"));
                 return $umodel;
             }
         ],
@@ -129,8 +129,8 @@ return [
         "cmodel" => [
             "shared" => false,
             "callback" => function () {
-                $cmodel = new \CJ\Comment\CommentModel();
-                $cmodel->setDI($this);
+                $cmodel = new \CJ\Comment\Comment();
+                $cmodel->init($this->get("db"));
                 return $cmodel;
             }
         ],

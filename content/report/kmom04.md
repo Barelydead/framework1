@@ -26,3 +26,8 @@ Den erfarenhet jag har av ORM kommer ifrån OOPython-kursen där vi använde SQL
 Scaffolding tycker jag verkar vara en utomordentlig teknik för att ha snabbt kunna komma igång med ett projekt. I och med att det går att anpassa vad som ska finnas med så kan man göra ett antal olika scaffolds med presets som passar för olika typer av projekt. Tidigare har jag tänkt att ramverk är något man jobbar med när man vill göra större projekt men med scaffolding så kan det passa lika bra att göra en enkel statisk websida.
 
 Att använda scaffolding förutsätter dock att man har erfarenhet av ramverket och dess komponeter för användas på ett bra sätt. Har man inte det så tror jag att man lätt missar funktionalitet och det kan vara svårt att förstå hur allt hänger ihop.
+
+
+Det finns 2 stycken dummy användare. 
+admin - admin
+doe - doe

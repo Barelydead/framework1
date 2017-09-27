@@ -5,6 +5,7 @@ namespace CJ\Comment;
 use \Anax\DI\InjectionAwareInterface;
 use \Anax\DI\InjectionAwareTrait;
 use \CJ\User\User;
+use \CJ\Comment\Comment;
 use \CJ\Comment\HTMLForm\CreateCommentForm;
 use \CJ\Comment\HTMLForm\EditCommentForm;
 
@@ -39,23 +40,14 @@ class CommentController implements InjectionAwareInterface
     }
 
     /**
-     * remove all comments
-     */
-    public function removeAllComments()
-    {
-        $this->app->session->destroy();
-
-        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
-    }
-
-    /**
      * remove one comment
      */
     public function removeComment($index)
     {
-        $cmodel = $this->di->get("cmodel");
-        $comment = $cmodel->getComment($index);
         $user = $this->di->get("umodel");
+        $comment = $this->di->get("cmodel");
+
+        $comment->getComment($index);
 
 
         if ($comment->user !== $this->di->get("session")->get("user")) {
@@ -67,14 +59,14 @@ class CommentController implements InjectionAwareInterface
         }
 
 
-        $cmodel->delete($index);
+        $comment->deleteComment($index);
         $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
     /**
      * load edit page
      */
-    public function loadEdit($index)
+    public function editComment($index)
     {
         $comment = $this->di->get("cmodel")->getComment($index);
         $user = $this->di->get("umodel");
@@ -95,17 +87,6 @@ class CommentController implements InjectionAwareInterface
 
         $this->di->get("view")->add("user/update", $data, "main");
         $this->di->get("pageRender")->renderPage(["title" => "guestbook - edit"]);
-    }
-
-    /**
-     * edit comment
-     */
-    public function editComment()
-    {
-        $data = $this->di->get("request")->getPost();
-
-        $this->di->get("cmodel")->updateComment($data);
-        $this->di->get("response")->redirect($this->di->get("url")->create("comment"));
     }
 
 

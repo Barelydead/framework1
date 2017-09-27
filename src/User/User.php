@@ -26,6 +26,21 @@ class User extends ActiveRecordModel
     public $deleted;
     public $active;
 
+
+    /**
+    * Creating $session var for inject
+    */
+    private $session;
+
+    /**
+    *   Init the class with session and database
+    */
+    public function init($db, $session)
+    {
+        $this->session = $session;
+        $this->setDb($db);
+    }
+
     /**
      * Set the password.
      *
@@ -52,5 +67,76 @@ class User extends ActiveRecordModel
     {
         $this->find("mail", $mail);
         return password_verify($password, $this->password);
+    }
+
+    /*
+    * Get all users.
+    */
+    public function getAllUsers()
+    {
+        return $this->findAll();
+    }
+
+
+    /*
+    * Get all users.
+    */
+    public function deleteUser($id)
+    {
+        $this->user->find("id", $id);
+        $this->user->delete();
+    }
+
+
+    /*
+    * Get a user based on ID
+    */
+    public function getUser($id)
+    {
+        return $this->find("id", $id);
+    }
+
+    /*
+    * Get a user based on ID
+    */
+    public function isLoggedIn()
+    {
+        return $this->session->has("user");
+    }
+
+
+    /*
+    * Get a user based on ID
+    */
+    public function getLoggedInUserId()
+    {
+        return $this->session->get("user");
+    }
+
+
+    public function getUserImg($mail, $classes = "", $size = 125)
+    {
+        $hash = md5($mail);
+
+        $html = "<img src='https://www.gravatar.com/avatar/$hash?s=$size&default=mm' class='$classes'>";
+        return $html;
+    }
+
+
+    /*
+    * Return true is user is admin
+    */
+    public function isUserAdmin()
+    {
+        if ($this->isLoggedIn()) {
+            $id = $this->getLoggedInUserId();
+
+            $this->find("id", $id);
+            if ($this->userType == "admin") {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
