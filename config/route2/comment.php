@@ -7,37 +7,37 @@ return [
             "info" => "redirct and render Comment page",
             "requestMethod" => null,
             "path" => "comment",
-            "callable" => ["ccontrol", "renderComments"]
+            "callable" => ["commentController", "renderComments"]
         ],
         [
             "info" => "add new post to session",
             "requestMethod" => "get|post",
             "path" => "comment/new",
-            "callable" => ["ccontrol", "newComment"]
+            "callable" => ["commentController", "newComment"]
         ],
         [
             "info" => "remove all comments",
             "requestMethod" => "get",
             "path" => "comment/delete",
-            "callable" => ["ccontrol", "removeAllComments"]
+            "callable" => ["commentController", "removeAllComments"]
         ],
         [
             "info" => "remove comment with a specific ID",
             "requestMethod" => "get",
             "path" => "comment/delete/{index:digit}",
-            "callable" => ["ccontrol", "removeComment"]
+            "callable" => ["commentController", "removeComment"]
         ],
         [
             "info" => "redirect to edit page",
             "requestMethod" => "get|post",
             "path" => "comment/edit/{index}",
-            "callable" => ["ccontrol", "editComment"]
+            "callable" => ["commentController", "editComment"]
         ],
         [
             "info" => "redirect to edit page",
             "requestMethod" => "get",
             "path" => "comment/edit",
-            "callable" => ["ccontrol", "editComment"]
+            "callable" => ["commentController", "editComment"]
         ],
     ]
 ];

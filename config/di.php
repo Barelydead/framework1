@@ -118,7 +118,7 @@ return [
                 return $umodel;
             }
         ],
-        "ccontrol" => [
+        "commentController" => [
             "shared" => false,
             "callback" => function () {
                 $ccontrol = new \CJ\Comment\CommentController();
@@ -126,7 +126,7 @@ return [
                 return $ccontrol;
             }
         ],
-        "cmodel" => [
+        "comment" => [
             "shared" => false,
             "callback" => function () {
                 $cmodel = new \CJ\Comment\Comment();

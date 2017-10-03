@@ -114,6 +114,18 @@ class User extends ActiveRecordModel
     }
 
 
+    /*
+    * Get logged in user
+    * @return user class
+    */
+    public function getLoggedInUser()
+    {
+        if ($this->session->has("user")) {
+            return $this->find("id", $this->session->get("user"));
+        }
+    }
+
+
     public function getUserImg($mail, $classes = "", $size = 125)
     {
         $hash = md5($mail);
