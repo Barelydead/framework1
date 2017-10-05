@@ -4,7 +4,7 @@
 <h2>Kommentarer</h2>
 <?php foreach ($comments as $comment) : ?>
     <div class="comment">
-        <?= $profilePic ?>
+        <?= $di->get("comment")->getAvatar($comment->id, "pull-left margin-right") ?>
         <span class="text-muted"><?=$comment->userMail ?> - <?=$comment->postDate ?></span>
 
         <?php if (is_object($user)) : ?>
